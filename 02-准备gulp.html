@@ -14,6 +14,13 @@
             这个文件必须写在项目根目录下，和src和dist同级。在打包时，需要在项目里再次安装gulp，gulp作为第三方模块的形式出现，它的
             作用是专门提供配置打包流程的API
         */
+
+        /*
+            package.json记录的第三方依赖，
+            dependencies（项目依赖）指项目运行需要用到的内容，将来上线也需要用到的内容
+            devDependencies（开发依赖）指项目开发阶段需要用到的内容，但是将来上线不需要用到的内容
+            gulp第三方包最好放在devDependencies，在安装依赖时通过 （npm install -D 包名） 来安装
+        */
     </script>
 </body>
 </html>
