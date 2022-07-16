@@ -5,6 +5,7 @@
 const gulp = require('gulp');
 const cssmin = require('gulp-cssmin')
 const autoPrefixer = require('gulp-autoprefixer')
+const sass = require('gulp-sass')(require('node-sass'))
 
 // 1.创建一个打包CSS的任务，gulp3的写法 
 // gulp.task('cssHandler', function() {
@@ -35,7 +36,8 @@ module.exports.cssHandler = cssHandler
 const sassHandler = function() {
     return gulp
         .src('./src/sass/*.scss')
-        .pipe()
+        // 将sass文件转换成css文件
+        .pipe(sass())
         .pipe(autoPrefixer())
         .pipe(cssmin())
         .pipe(gulp.dest('./dist/sass/'));
