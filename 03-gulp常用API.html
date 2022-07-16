@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /*
+            1.gulp.task()
+            => 语法：gulp.task(任务名称, 任务处理函数)
+            => 作用：创建一个基于流的任务
+            => 例子：gulp.task('htmlHandler', function() {
+                // 找到html源文件，进行压缩、打包、放入指定目录
+            })
+
+            2.gulp.src()
+            => 语法：gulp.src(路径信息)
+            => 作用：找到源文件
+            => 书写方式：
+                gulp.src(./a/b.html) 找到a目录下的b.html
+                gulp.src(./a/*.html) 找到a目录下的以html为后缀的文件
+                gulp.src(./a/**) 找到a目录下的所有文件
+                gulp.src('./a/** /*') 找到a目录下的所有子目录下的所有文件
+                gulp.src('./a/** /*.html') 找到a目录下的所有子目录下的以html为后缀的文件
+            
+            3.gulp.dest()
+            => 语法：gulp.dest(路径信息)
+            => 作用：把一个内容放入指定目录内
+            => 例子：gulp.dest('./abc') 把它所接收到的命令放到abc目录下
+
+            4.gulp.watch()
+            => 语法：gulp.watch(路径信息, 任务名称)
+            => 作用：监控指定目录下的文件，一旦发生变化，从新执行后面的任务
+            => 例子：gulp.watch('./src/html/*.html', htmlHandler) 当指定目录下的html文件发生了变化，就会执行htmlHandler
+
+            5.gulp.series()
+            => 语法：gulp.series(任务1, 任务2, 任务3, ...)
+            => 作用：逐个执行多个任务，前一个任务结束，下一个任务开始
+
+            6.gulp.paralle()
+            => 语法：gulp.paralle(任务1, 任务2, 任务3, ...)
+            => 作用：同时开始执行多个任务
+            
+            7.pipe() 管道函数
+            => 作用：所有的gulp API 都是基于流 的，pipe()就是接收当前流，进入下一个流过程的管道函数
+            => 例子：gulp.src().pipe(压缩任务).pipe(转码).pipe(gulp.dest('abc '))
+        */
+    </script>
+</body>
+</html>
