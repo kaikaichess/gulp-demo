@@ -1,1 +1,7 @@
-div{width:100px;height:100px;background-color:#fff}
+div {
+    width: 100px;
+    height: 100px;
+    background-color: #fff;
+    -webkit-transition: all 1s linear;
+    transition: all 1s linear;
+}

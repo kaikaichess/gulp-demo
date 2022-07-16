@@ -4,6 +4,7 @@
 
 const gulp = require('gulp');
 const cssmin = require('gulp-cssmin')
+const autoPrefixer = require('gulp-autoprefixer')
 
 // 1.创建一个打包CSS的任务，gulp3的写法 
 // gulp.task('cssHandler', function() {
@@ -19,5 +20,11 @@ const cssmin = require('gulp-cssmin')
 
 // 1.创建一个打包CSS的任务，gulp4的写法
 const cssHandler = function() {
-    
+    return gulp
+        .src('./src/css/*.css')
+        .pipe(autoPrefixer({ browsers:['last 2 version'] }))
+        // .pipe(cssmin())
+        .pipe(gulp.dest('./dist/css/'));
 }
+// 导出这个任务，必须要导出，否则无法执行
+module.exports.cssHandler = cssHandler
