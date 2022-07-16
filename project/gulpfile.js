@@ -30,3 +30,15 @@ const cssHandler = function() {
 }
 // 导出这个任务，必须要导出，否则无法执行
 module.exports.cssHandler = cssHandler
+
+// 创建一个打包SASS的任务
+const sassHandler = function() {
+    return gulp
+        .src('./src/sass/*.scss')
+        .pipe()
+        .pipe(autoPrefixer())
+        .pipe(cssmin())
+        .pipe(gulp.dest('./dist/sass/'));
+}
+
+module.exports.sassHandler = sassHandler
