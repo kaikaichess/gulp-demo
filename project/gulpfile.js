@@ -12,6 +12,8 @@ const autoPrefixer = require('gulp-autoprefixer')
 //     return gulp
 //         // 找到源文件
 //         .src('./src/css/*.css')
+//         // 进行转码
+//         .pipe(autoPrefixer())
 //         // 压缩文件
 //         .pipe(cssmin())
 //         // 把文件放到指定目录下
@@ -22,8 +24,8 @@ const autoPrefixer = require('gulp-autoprefixer')
 const cssHandler = function() {
     return gulp
         .src('./src/css/*.css')
-        .pipe(autoPrefixer({ browsers:['last 2 version'] }))
-        // .pipe(cssmin())
+        .pipe(autoPrefixer())
+        .pipe(cssmin())
         .pipe(gulp.dest('./dist/css/'));
 }
 // 导出这个任务，必须要导出，否则无法执行

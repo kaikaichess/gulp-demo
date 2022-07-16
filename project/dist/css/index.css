@@ -1,7 +1,1 @@
-div {
-    width: 100px;
-    height: 100px;
-    background-color: #fff;
-    -webkit-transition: all 1s linear;
-    transition: all 1s linear;
-}
+div{width:100px;height:100px;background-color:#fff;-webkit-transition:all 1s linear;-moz-transition:all 1s linear;transition:all 1s linear;display:-webkit-box;display:-moz-box;display:-ms-flexbox;display:flex}

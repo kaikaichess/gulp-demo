@@ -3,4 +3,5 @@ div {
     height: 100px;
     background-color: #fff;
     transition: all 1s linear;
+    display: flex;
 }
