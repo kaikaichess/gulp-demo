@@ -9,6 +9,7 @@ const sass = require('gulp-sass')(require('node-sass'))
 const uglify = require('gulp-uglify')
 const babel = require('gulp-babel')
 const htmlmin = require('gulp-htmlmin')
+const del = require('del')
 
 // 创建一个打包CSS的任务，gulp3的写法 
 // gulp.task('cssHandler', function() {
@@ -124,6 +125,13 @@ const fontsHandler = function() {
 }
 module.exports.fontsHandler = fontsHandler
 
+// 创建一个删除dist目录的任务
+const delHandler = function() {
+    // del直接执行就可以，不需要流，参数以数组的形式传递
+    return del(['./dist/'])
+}
+module.exports.delHandler = delHandler
+
 /*
     配置一个默认任务，把所有的任务一起执行，通过gulp.series()或gulp.parallel()执行，这两个方法的返回值是一个函数
     我们可以使用task的方式创建一个default任务
@@ -133,4 +141,8 @@ module.exports.fontsHandler = fontsHandler
 */ 
 
 // 创建一个默认任务
-module.exports.default = gulp.parallel(cssHandler, sassHandler, jsHandler, htmlHandler, imgHandler, videoHandler, audioHandler, libHandler,fontsHandler)
+// module.exports.default = gulp.parallel(cssHandler, sassHandler, jsHandler, htmlHandler, imgHandler, videoHandler, audioHandler, libHandler,fontsHandler)
+module.exports.default = gulp.series( // gulp.parallel是并行执行任务，所以不确定哪个任务会先结束，所以要用gulp.series
+    delHandler,
+    gulp.parallel(cssHandler, sassHandler, jsHandler, htmlHandler, imgHandler, videoHandler, audioHandler, libHandler,fontsHandler)
+)
