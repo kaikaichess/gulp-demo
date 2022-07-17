@@ -7,6 +7,7 @@ const cssmin = require('gulp-cssmin')
 const autoPrefixer = require('gulp-autoprefixer')
 const sass = require('gulp-sass')(require('node-sass'))
 const uglify = require('gulp-uglify')
+const babel = require('gulp-babel')
 
 // 1.创建一个打包CSS的任务，gulp3的写法 
 // gulp.task('cssHandler', function() {
@@ -50,6 +51,10 @@ module.exports.sassHandler = sassHandler
 const jsHandler = function() {
     return gulp
         .src('./src/js/*.js')
+        // 转换成es5
+        .pipe(babel({
+            presets: ['@babel/env']
+        }))
         // 压缩JS文件
         .pipe(uglify())
         .pipe(gulp.dest('./dist/js/'));

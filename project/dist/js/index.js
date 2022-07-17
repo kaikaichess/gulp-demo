@@ -1,1 +1,1 @@
-for(var i=0;i<10;i++)console.log(i);console.log("hello world");
+"use strict";for(var i=0;i<10;i++)console.log(i);console.log("hello world");var _i=100;console.log(_i);
