@@ -61,3 +61,5 @@ const jsHandler = function() {
 }
 
 module.exports.jsHandler = jsHandler
+
+// 创建一个打包JS的任务
