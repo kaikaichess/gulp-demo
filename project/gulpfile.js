@@ -10,6 +10,7 @@ const uglify = require('gulp-uglify')
 const babel = require('gulp-babel')
 const htmlmin = require('gulp-htmlmin')
 const del = require('del')
+const webserver = require('gulp-webserver')
 
 // 创建一个打包CSS的任务，gulp3的写法 
 // gulp.task('cssHandler', function() {
@@ -132,6 +133,35 @@ const delHandler = function() {
 }
 module.exports.delHandler = delHandler
 
+// 创建一个启动服务器的任务
+const webHandler = function() {
+    return gulp
+    .src('./dist')
+    .pipe(webserver({
+        host: 'localhost', // 配置自定义域名
+        port: '8080', // 端口号
+        livereload: true, // 当文件修改时是否自动刷新页面
+        open: './html/index.html', // 默认打开哪一个文件（从dist目录下开始书写）
+        // proxies: [ // 配置所有的代理
+        //     // 每个代理都是一个对象数据类型，注意，若没有代理则不要写空对象
+        //     {
+        //         source: '', // 代理标识符
+        //         target: '' // 代理目标地址
+        //     }
+        // ]
+    }))
+}
+module.exports.webHandler = webHandler
+
+// 创建一个监控任务，监控src下的文件是否有变化
+const watchHandler = function() { 
+    gulp.watch('./src/html/*.html', htmlHandler),
+    gulp.watch('./src/css/*.css', cssHandler),
+    gulp.watch('./src/sass/*.scss', sassHandler),
+    gulp.watch('./src/js/*.js', jsHandler)
+}
+module.exports.watchHandler = watchHandler
+
 /*
     配置一个默认任务，把所有的任务一起执行，通过gulp.series()或gulp.parallel()执行，这两个方法的返回值是一个函数
     我们可以使用task的方式创建一个default任务
@@ -144,5 +174,7 @@ module.exports.delHandler = delHandler
 // module.exports.default = gulp.parallel(cssHandler, sassHandler, jsHandler, htmlHandler, imgHandler, videoHandler, audioHandler, libHandler,fontsHandler)
 module.exports.default = gulp.series( // gulp.parallel是并行执行任务，所以不确定哪个任务会先结束，所以要用gulp.series
     delHandler,
-    gulp.parallel(cssHandler, sassHandler, jsHandler, htmlHandler, imgHandler, videoHandler, audioHandler, libHandler,fontsHandler)
+    gulp.parallel(cssHandler, sassHandler, jsHandler, htmlHandler, imgHandler, videoHandler, audioHandler, libHandler,fontsHandler),
+    webHandler, // 启动服务器
+    watchHandler
 )

@@ -5,3 +5,6 @@ div {
     transition: all 1s linear;
     display: flex;
 }
+h1 {
+    color: red;
+}
