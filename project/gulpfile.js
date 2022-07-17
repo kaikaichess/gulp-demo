@@ -11,6 +11,7 @@ const babel = require('gulp-babel')
 const htmlmin = require('gulp-htmlmin')
 const del = require('del')
 const webserver = require('gulp-webserver')
+const fileInclude = require('gulp-file-include')
 
 // 创建一个打包CSS的任务，gulp3的写法 
 // gulp.task('cssHandler', function() {
@@ -67,6 +68,10 @@ module.exports.jsHandler = jsHandler
 const htmlHandler = function() {
     return gulp
         .src('./src/html/*.html')
+        .pipe(fileInclude({ // 根据配置导入对应的html片段
+            prefix: '@-@', // 自定义的标识符
+            basepath: './src/components', // 基准目录，你的组件都在哪一个目录里
+        }))
         .pipe(htmlmin({ // 通过配置的参数来决定压缩什么东西
             collapseWhitespace: true, // 移除空格、换行
             removeEmptyAttributes: true, // 移除空属性(仅限于原生属性)
