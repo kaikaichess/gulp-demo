@@ -10,7 +10,7 @@ const uglify = require('gulp-uglify')
 const babel = require('gulp-babel')
 const htmlmin = require('gulp-htmlmin')
 
-// 1.创建一个打包CSS的任务，gulp3的写法 
+// 创建一个打包CSS的任务，gulp3的写法 
 // gulp.task('cssHandler', function() {
 //     // 如果要捕获该任务的结束，需要把这个流 return 出去，task就会处理流
 //     return gulp
@@ -24,7 +24,7 @@ const htmlmin = require('gulp-htmlmin')
 //         .pipe(gulp.dest('./dist/css/'));
 // })
 
-// 1.创建一个打包CSS的任务，gulp4的写法
+// 创建一个打包CSS的任务，gulp4的写法
 const cssHandler = function() {
     return gulp
         .src('./src/css/*.css')
@@ -45,7 +45,6 @@ const sassHandler = function() {
         .pipe(cssmin())
         .pipe(gulp.dest('./dist/sass/'));
 }
-
 module.exports.sassHandler = sassHandler
 
 // 创建一个打包JS的任务
@@ -60,7 +59,6 @@ const jsHandler = function() {
         .pipe(uglify())
         .pipe(gulp.dest('./dist/js/'));
 }
-
 module.exports.jsHandler = jsHandler
 
 // 创建一个打包JS的任务
@@ -74,8 +72,65 @@ const htmlHandler = function() {
             removeAttributeQuotes: true, // 移除属性值的引号
             minifyCSS: true, // 对html中内联样式的css进行压缩(只是基本压缩，无法添加前缀)
             minifyJS: true, // 对html中内联样式的js进行压缩(只是基本压缩，无法进行es6转es5)
+            removeStyleLinkTypeAttributes: true, // 移除style标签和link标签上的type属性
+            removeScriptTypeAttributes: true, // 移除style标签上的type属性
         }))
         .pipe(gulp.dest('./dist/html/'));
 }
-
 module.exports.htmlHandler = htmlHandler()
+
+// 创建一个打包images的任务
+const imgHandler = function() {
+    // 在开发环境中。图片是不需要我们压缩的，我们使用的图片大部分是URL地址或UI处理好的，所以图片我们一般不做处理
+    return gulp
+    .src('./src/img/**')
+    .pipe(gulp.dest('./dist/img/'));
+}
+module.exports.imgHandler = imgHandler
+
+// 创建一个打包videos的任务
+const videoHandler = function() {
+    // 同images，video在开发环境中。也是不需要我们压缩的
+    return gulp
+    .src('./src/video/**')
+    .pipe(gulp.dest('./dist/video/'));
+}
+module.exports.videoHandler = videoHandler
+
+// 创建一个打包audio的任务
+const audioHandler = function() {
+    // 同images，audio在开发环境中。也是不需要我们压缩的
+    return gulp
+    .src('./src/audio/**')
+    .pipe(gulp.dest('./dist/audio/'));
+}
+module.exports.audioHandler = audioHandler
+
+// 创建一个打包第三方的任务
+const libHandler = function() {
+    // 同images，lib在开发环境中。也是不需要我们处理的
+    return gulp
+    .src('./src/lib/**/*')
+    .pipe(gulp.dest('./dist/lib/'));
+}
+module.exports.libHandler = libHandler
+
+// 创建一个打包fonts的任务
+const fontsHandler = function() {
+    // 同images，fonts在开发环境中。也是不需要我们处理的
+    return gulp
+    .src('./src/fonts/**/*')
+    .pipe(gulp.dest('./dist/fonts/'));
+}
+module.exports.fontsHandler = fontsHandler
+
+/*
+    配置一个默认任务，把所有的任务一起执行，通过gulp.series()或gulp.parallel()执行，这两个方法的返回值是一个函数
+    我们可以使用task的方式创建一个default任务
+    方式1：gulp.task('default', () => {})
+    方式2：module.exports.default = () => {}
+    默认任务一定要叫default，因为这样可以直接通过 gulp 指令调用，从而省略了任务名
+*/ 
+
+// 创建一个默认任务
+module.exports.default = gulp.parallel(cssHandler, sassHandler, jsHandler, htmlHandler, imgHandler, videoHandler, audioHandler, libHandler,fontsHandler)
