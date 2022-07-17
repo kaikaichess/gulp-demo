@@ -6,6 +6,7 @@ const gulp = require('gulp');
 const cssmin = require('gulp-cssmin')
 const autoPrefixer = require('gulp-autoprefixer')
 const sass = require('gulp-sass')(require('node-sass'))
+const uglify = require('gulp-uglify')
 
 // 1.创建一个打包CSS的任务，gulp3的写法 
 // gulp.task('cssHandler', function() {
@@ -44,3 +45,14 @@ const sassHandler = function() {
 }
 
 module.exports.sassHandler = sassHandler
+
+// 创建一个打包JS的任务
+const jsHandler = function() {
+    return gulp
+        .src('./src/js/*.js')
+        // 压缩JS文件
+        .pipe(uglify())
+        .pipe(gulp.dest('./dist/js/'));
+}
+
+module.exports.jsHandler = jsHandler
