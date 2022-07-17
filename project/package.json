@@ -20,6 +20,7 @@
     "gulp-htmlmin": "^5.0.1",
     "gulp-sass": "^5.1.0",
     "gulp-uglify": "^3.0.2",
+    "gulp-webserver": "^0.9.1",
     "node-sass": "^7.0.1"
   },
   "browserslist": [
